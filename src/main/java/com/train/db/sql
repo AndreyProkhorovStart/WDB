@@ -1,0 +1,60 @@
+create table study.country
+(
+    id        int auto_increment
+        primary key,
+    code_name varchar(6)   not null,
+    full_name varchar(255) not null
+);
+
+-- auto-generated definition
+create table study.climate_change
+(
+    id         int auto_increment
+        primary key,
+    id_indicator int          not null,
+    id_country   int          not null,
+    value        varchar(200) not null,
+    year         varchar(200) not null,
+    constraint climate_change_country_id_fk
+        foreign key (id_country) references study.country (id),
+    constraint climate_change_indicators_id_fk
+        foreign key (id_indicator) references study.indicators (id)
+);
+
+-- auto-generated definition
+create table study.economy_growth
+(
+    id         int auto_increment
+        primary key,
+    id_indicator int          not null,
+    id_country   int          not null,
+    value        varchar(200) not null,
+    year         varchar(200) not null,
+    constraint economy_growth_country_id_fk
+        foreign key (id_country) references study.country (id),
+    constraint economy_growth_indicators_id_fk
+        foreign key (id_indicator) references study.indicators (id)
+);
+
+-- auto-generated definition
+create table study.groups
+(
+    id      int auto_increment
+        primary key,
+    name    varchar(255)      not null,
+    isExist tinyint(1) default 0 null
+);
+
+
+-- auto-generated definition
+create table study.indicators
+(
+    id        int auto_increment
+        primary key,
+    id_group int                  not null,
+    code     varchar(200)         not null,
+    name     varchar(200)         not null,
+    isExist  tinyint(1) default 0 null,
+    constraint Indicators_groups_id_fk
+        foreign key (id_group) references study.groups (id)
+);
